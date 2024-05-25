@@ -236,112 +236,93 @@ void printStudentsByListNumber(Student students[], int numberOfStudents, int k) 
 }
 
 int main() {
-    //setlocale(LC_ALL, "RUS");
 
-    SetConsoleOutputCP(1251);
-    SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
 
-    const int MAX_STUDENTS = 100; // Максимальное количество студентов
-    Student students[MAX_STUDENTS]; // Статический массив структур
-    int numberOfStudents; // Переменная для хранения фактического количества студентов
+	const int MAX_STUDENTS = 100; // Максимальное количество студентов
+	Student students[MAX_STUDENTS]; // Статический массив структур
+	int numberOfStudents; // Переменная для хранения фактического количества студентов
 
-    /*
-    const int numberOfStudents = 12; // Количество студентов
-    
-    // Создание массива структур Student
-    Student students[numberOfStudents] = {
-        {"Иванов Иван Иванович", 'M', 101, 1, {5, 4, 5}, {3, 4, 5, 4, 5}},
-        {"Петрова Мария Ивановна", 'F', 101, 2, {4, 3, 4}, {5, 5, 4, 4, 3}},
-        {"Смирнов Алексей Петрович", 'M', 101, 3, {3, 4, 5}, {4, 5, 4, 3, 5}},
-        {"Кузнецова Анна Сергеевна", 'F', 102, 1, {5, 5, 5}, {5, 5, 5, 5, 5}},
-        {"Соколов Илья Васильевич", 'M', 102, 2, {4, 4, 4}, {4, 4, 4, 4, 4}},
-        {"Попова Ксения Андреевна", 'F', 102, 3, {3, 3, 3}, {3, 3, 3, 3, 3}},
-        {"Лебедева Дарья Михайловна", 'F', 102, 4, {5, 4, 4}, {5, 4, 4, 5, 4}},
-        {"Новиков Дмитрий Алексеевич", 'M', 103, 1, {4, 5, 4}, {4, 5, 4, 4, 5}},
-        {"Морозова Елена Сергеевна", 'F', 103, 2, {5, 5, 5}, {5, 5, 5, 5, 5}},
-        {"Петров Владимир Александрович", 'M', 103, 3, {3, 4, 3}, {3, 4, 3, 3, 4}},
-        {"Волкова Алина Михайловна", 'F', 103, 4, {4, 4, 4}, {4, 4, 4, 4, 4}},
-        {"Соловьёва Ольга Игоревна", 'F', 103, 5, {5, 4, 5}, {5, 4, 5, 5, 4}}
-    };
-    */
+	int choice;
 
-    while (true) {
-        int choice;
-        cout << "Выберите функцию:\n";
-        cout << "1. Создание новой записи о студенте.\n";
-        cout << "2. Внесение изменений в уже имеющуюся запись.\n";
-        cout << "3. Вывод всех данных о студентах.\n";
-        cout << "4. Вывод информации обо всех студентах группы N. N – инициализируется пользователем.\n";
-        cout << "5. Вывод топа самых успешных студентов с наивысшим по рейтингу средним баллом за прошедшую сессию.\n";
-        cout << "6. Вывод количества студентов мужского и женского пола.\n";
-        cout << "7. Вывод данных о студентах, которые не получают стипендию; учатся только на «хорошо» и «отлично»; учатся только на «отлично»;\n";
-        cout << "8. Вывод данных о студентах, имеющих номер в списке – k.\n";
-        cout << "9. Выход из программы.\n";
-        cin >> choice;
+	do {
+		cout << "Выберите функцию:\n";
+		cout << "1. Создание новой записи о студенте.\n";
+		cout << "2. Внесение изменений в уже имеющуюся запись.\n";
+		cout << "3. Вывод всех данных о студентах.\n";
+		cout << "4. Вывод информации обо всех студентах группы N. N – инициализируется пользователем.\n";
+		cout << "5. Вывод топа самых успешных студентов с наивысшим по рейтингу средним баллом за прошедшую сессию.\n";
+		cout << "6. Вывод количества студентов мужского и женского пола.\n";
+		cout << "7. Вывод данных о студентах, которые не получают стипендию; учатся только на «хорошо» и «отлично»; учатся только на «отлично»;\n";
+		cout << "8. Вывод данных о студентах, имеющих номер в списке – k.\n";
+		cout << "9. Выход из программы.\n";
+		cin >> choice;
 
-        switch (choice) {
-        case 1:
-            cout << "Введите количество студентов для добавления (не более " << MAX_STUDENTS << "): ";
-            cin >> numberOfStudents;
-            cin.ignore(); // Очистка буфера ввода после ввода числа
+		switch (choice) {
+		case 1:
+			cout << "Введите количество студентов для добавления (не более " << MAX_STUDENTS << "): ";
+			cin >> numberOfStudents;
+			cin.ignore(); // Очистка буфера ввода после ввода числа
 
-            if (numberOfStudents > MAX_STUDENTS) {
-                cout << "Количество студентов не может превышать " << MAX_STUDENTS << "." << endl;
-            }
-            else {
-                for (int i = 0; i < numberOfStudents; ++i) {
-                    cout << "Студент " << (i + 1) << ":" << endl;
-                    addStudent(students[i]);
-                }
-            }
-            break;
-        case 2:
-            int studentIndex;
-            cout << "Введите номер студента для изменения данных (0-" << numberOfStudents - 1 << "): ";
-            cin >> studentIndex;
-            if (studentIndex >= 0 && studentIndex < numberOfStudents) {
-                editStudent(students[studentIndex]);
-            }
-            else {
-                cout << "Неверный номер студента.\n";
-            }
-            break;
-        case 3:
-            for (int i = 0; i < numberOfStudents; ++i) {
-                printStudentInfo(students[i]);
-            }
-            break;
-        case 4:
-            int groupNumber;
-            cout << "Введите номер группы для вывода информации о студентах: ";
-            cin >> groupNumber;
-            printStudentsByGroup(students, numberOfStudents, groupNumber);
-            break;
-        case 5:
-            printTopStudents(students, numberOfStudents);
-            break;
-        case 6:
-            int maleCount, femaleCount;
-            countGender(students, numberOfStudents, maleCount, femaleCount);
-            cout << "Количество студентов мужского пола: " << maleCount << "\n";
-            cout << "Количество студентов женского пола: " << femaleCount << "\n";
-            break;
-        case 7:
-            printExcellentStudents(students, numberOfStudents);
-            break;
-        case 8:
-            int k; // Укажите нужный номер в списке
-            cout << "Введите номер в списке: ";
-            cin >> k;
-            printStudentsByListNumber(students, numberOfStudents, k);
-            break;
-        case 9:
-            break;
-        default:
-            cout << "Неверный выбор.\n";
-            break;
-        }
-    }
+			if (numberOfStudents > MAX_STUDENTS) {
+				cout << "Количество студентов не может превышать " << MAX_STUDENTS << "." << endl;
+			}
+			else {
+				for (int i = 0; i < numberOfStudents; ++i) {
+					cout << "Студент " << (i + 1) << ":" << endl;
+					addStudent(students[i]);
+				}
+			}
+			break;
+		case 2:
+			int studentIndex;
+			cout << "Введите номер студента для изменения данных (0-" << numberOfStudents - 1 << "): ";
+			cin >> studentIndex;
+			if (studentIndex >= 0 && studentIndex < numberOfStudents) {
+				editStudent(students[studentIndex]);
+			}
+			else {
+				cout << "Неверный номер студента.\n";
+			}
+			break;
+		case 3:
+			for (int i = 0; i < numberOfStudents; ++i) {
+				printStudentInfo(students[i]);
+			}
+			break;
+		case 4:
+			int groupNumber;
+			cout << "Введите номер группы для вывода информации о студентах: ";
+			cin >> groupNumber;
+			printStudentsByGroup(students, numberOfStudents, groupNumber);
+			break;
+		case 5:
+			printTopStudents(students, numberOfStudents);
+			break;
+		case 6:
+			int maleCount, femaleCount;
+			countGender(students, numberOfStudents, maleCount, femaleCount);
+			cout << "Количество студентов мужского пола: " << maleCount << "\n";
+			cout << "Количество студентов женского пола: " << femaleCount << "\n";
+			break;
+		case 7:
+			printExcellentStudents(students, numberOfStudents);
+			break;
+		case 8:
+			int k; // Укажите нужный номер в списке
+			cout << "Введите номер в списке: ";
+			cin >> k;
+			printStudentsByListNumber(students, numberOfStudents, k);
+			break;
+		case 9:
+			break;
+		default:
+			cout << "Некорректный ввод. Попробуйте снова." << endl;
+		}
 
-    return 0;
+	} while (choice != 9);
+
+	return 0;
+
 }
